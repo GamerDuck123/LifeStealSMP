@@ -1,0 +1,94 @@
+package com.gamerduck.objects;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+
+import com.gamerduck.LifeStealAPI;
+import com.gamerduck.configs.values;
+
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
+
+public class LifeStealPlayer {
+	Player p;
+	UUID uuid;
+	String uuidstring;
+	
+	public LifeStealPlayer(Player p) {
+		this.p = p;
+		this.uuid = p.getUniqueId();
+		this.uuidstring = p.getUniqueId().toString();
+		p.setHealthScaled(true);
+		if (LifeStealAPI.a().getDatabase().retrieveHearts(uuidstring) != -1d) {
+			p.setHealthScale(LifeStealAPI.a().getDatabase().retrieveHearts(uuidstring));
+		} else {
+			p.setHealthScale(values.DEFAULT_HEART_AMOUNT);
+		}
+		updateTABColor();
+	}
+	
+	public void onQuit() {
+		LifeStealAPI.a().getDatabase().storeHearts(uuidstring, p.getHealthScale());
+	}
+	
+	public Player getPlayer() {return p;}
+	public String getName() {return p.getName();}
+	public UUID getUUID() {return uuid;}
+	public String getUUIDAsString() {return uuidstring;}
+	
+	public Double getHearts() {return p.getHealthScale();}
+	public boolean resetHearts() {
+		p.setHealthScale(values.DEFAULT_HEART_AMOUNT);
+		return p.getHealth() == values.DEFAULT_HEART_AMOUNT;
+	}
+	public boolean setHearts(Double amount) {
+		p.setHealthScale(amount);
+		return p.getHealth() == amount;
+	}
+	public boolean addHearts(Double amount) {
+		p.setHealthScale(p.getHealthScale() + amount);
+		return p.getHealthScale() == (p.getHealthScale() + amount);
+	}
+	public boolean subHearts(Double amount) {
+		p.setHealthScale(p.getHealthScale() - amount);
+		return p.getHealthScale() == (p.getHealthScale() - amount);
+	}
+	
+	public boolean sendMessage(String msg) {p.sendMessage(ChatColor.translateAlternateColorCodes('&', msg)); return true;}
+	public boolean sendMessage(ArrayList<String> msgs) {
+		msgs.forEach(s -> p.sendMessage(ChatColor.translateAlternateColorCodes('&', s)));
+		return true;
+	}
+	public boolean sendMessage(List<String> msgs) {
+		msgs.forEach(s -> p.sendMessage(ChatColor.translateAlternateColorCodes('&', s)));
+		return true;
+	}
+	public boolean sendMessage(TextComponent text) {p.spigot().sendMessage(text); return true;}
+	
+	public boolean hasPermission(Permission perm) {return p.hasPermission(perm);}
+	public boolean hasPermission(String perm) {return p.hasPermission(perm);}
+	
+	public boolean updateTABColor() {
+		if (values.TAB_ENABLED == false) return false;
+		for (String s : values.TAB_COLORS) {
+			String[] split = s.split(":");
+			double amount = isNumeric(split[0]) ? Double.parseDouble(split[0]) : 0.0;
+			ChatColor color = ChatColor.getByChar(split[1].charAt(1));
+			if (this.getHearts() <= amount) {
+				p.setPlayerListName(color + p.getName());
+			}
+		}
+		return true;
+	}
+	
+	private boolean isNumeric(String strNum) {
+	    if (strNum == null) return false;
+	    try { Double.parseDouble(strNum); }
+	    catch (NumberFormatException nfe) { return false; }
+	    return true;
+	}
+}

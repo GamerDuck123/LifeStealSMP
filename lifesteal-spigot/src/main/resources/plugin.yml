@@ -1,0 +1,7 @@
+name: LifeStealSMP
+main: com.gamerduck.LifeStealMain
+version: ${project.version}
+description: lifestealsmp plugin thingy
+commands:
+  lifesteal:
+    description: main command
