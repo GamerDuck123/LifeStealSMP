@@ -1,9 +1,13 @@
 package com.gamerduck.objects;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
@@ -26,9 +30,23 @@ public class LifeStealPlayer {
 		if (LifeStealAPI.a().getDatabase().retrieveHearts(uuidstring) != -1d) {
 			p.setHealthScale(LifeStealAPI.a().getDatabase().retrieveHearts(uuidstring));
 		} else {
-			p.setHealthScale(values.DEFAULT_HEART_AMOUNT);
+			if (values.DEFAULT_CONVERT_FROM == null && values.DEFAULT_CONVERT_FROM.equalsIgnoreCase("")) {
+				p.setHealthScale(values.DEFAULT_HEART_AMOUNT);
+			} else {
+				convertFrom(values.DEFAULT_CONVERT_FROM);
+			}
 		}
 		updateTABColor();
+	}
+	
+	public void convertFrom(String s) {
+		if (s.equalsIgnoreCase("VoodooLifeSteal")) {
+			AttributeInstance maxHP = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+			String sep = File.separator;
+			File file = new File("plugins" + sep + "Lifesteal-Smp-Plugin", "config.yml" );
+			YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+			p.setHealthScale(maxHP.getBaseValue() + ((config.getBoolean("scaleHealth")) ? config.getDouble("healthScale") : 0));
+		}
 	}
 	
 	public void onQuit() {

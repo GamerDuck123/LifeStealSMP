@@ -28,6 +28,7 @@ public class LifeStealCommand implements TabExecutor {
 				p.sendMessage("&7[&cLifeStealSMP&7] LifeStealSMP made by GamerDuck123");
 				p.sendMessage(" &c- /lifesteal reload");
 				p.sendMessage(" &c- /lifesteal life (give | remove | set) (player) (amount)");
+				p.sendMessage(" &c- /lifesteal convert (VoodooLifeSteal)");
 			} else {
 				if (args[0].equalsIgnoreCase("reload")) {
 					LifeStealMain.a().getLifeStealServer().reload();
@@ -48,6 +49,14 @@ public class LifeStealCommand implements TabExecutor {
 						LifeGainEvent event = new LifeGainEvent(target.getPlayer(), LifeReason.COMMAND, amount);
 						Bukkit.getServer().getPluginManager().callEvent(event);
 					}
+				} else if (args[0].equalsIgnoreCase("convert")) {
+					if (args.length < 2) return p.sendMessage("&cCorrect Usage: /lifesteal convert (VoodooLifeSteal)");
+					if (args[1].equalsIgnoreCase("VoodooLifeSteal")) {
+						LifeStealMain.a().getAPI().getConfig().set("Defaults.ConvertFrom", "VoodooLifeSteal");
+						LifeStealMain.a().getAPI().getServer().reload();
+					    p.sendMessage("&cNow converting everyone from Voodoo's LifeStealSMP plugin");	
+					    LifeStealMain.a().getAPI().getServer().getOnlinePlayers().forEach(pl -> pl.convertFrom("VoodooLifeSteal"));
+					}
 				}
 			}
 		}
@@ -59,6 +68,7 @@ public class LifeStealCommand implements TabExecutor {
 	    catch (NumberFormatException nfe) { return false; }
 	    return true;
 	}
+	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		ArrayList<String> cmds = new ArrayList<String>();
