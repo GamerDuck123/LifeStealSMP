@@ -53,7 +53,8 @@ public class LifeStealCommand implements TabExecutor {
 					if (args.length < 2) return p.sendMessage("&cCorrect Usage: /lifesteal convert (VoodooLifeSteal)");
 					if (args[1].equalsIgnoreCase("VoodooLifeSteal")) {
 						LifeStealMain.a().getAPI().getConfig().set("Defaults.ConvertFrom", "VoodooLifeSteal");
-						LifeStealMain.a().getAPI().getServer().reload();
+						LifeStealMain.a().getAPI().saveConfig();
+						LifeStealMain.a().getAPI().reloadConfig();
 					    p.sendMessage("&cNow converting everyone from Voodoo's LifeStealSMP plugin");	
 					    LifeStealMain.a().getAPI().getServer().getOnlinePlayers().forEach(pl -> pl.convertFrom("VoodooLifeSteal"));
 					}
