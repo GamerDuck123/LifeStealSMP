@@ -2,6 +2,7 @@ name: LifeStealSMP
 main: com.gamerduck.LifeStealMain
 version: ${project.version}
 description: lifestealsmp plugin thingy
+api-version: 1.18
 commands:
   lifesteal:
     description: main command
