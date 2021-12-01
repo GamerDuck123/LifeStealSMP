@@ -37,5 +37,5 @@ Messages:
 ```
 ## Permissions
 ```YAML
-lifesteal.admin - One command for all /lifesteal commands
+lifesteal.admin - One permission for all /lifesteal commands
 ``` 
