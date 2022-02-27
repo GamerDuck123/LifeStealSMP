@@ -5,35 +5,53 @@
 ## Config
 ```YAML
 Defaults:
-  ConvertFrom: "" # This will auto fill out when you do /lifesteal convert
-  StartHeartAmount: 20.0 # The amount of hearts a player starts with
-  LoseHeartsOnNonPlayerDeath: false # Does a player lose hearts when killed by the enviroment?
-  HeartsLostOnDeath: 2.0 # How many hearts are lost on death (2 = 1 full heart)
-  HeartsGainedOnKill: 2.0 # How many hearts are gained on a player kill (2 = 1 full heart)
-  HeartsZeroedAmount: 0.0 # How many hearts does the player have to have until they "zero out" or loses
-  CommandsAfterZeroing: # The command to run when a player hits the zero out amount
+  ConvertFrom: ""
+  StartHeartAmount: 20.0
+  LoseHeartsOnNonPlayerDeath: false
+  HeartsLostOnDeath: 2.0
+  HeartsGainedOnKill: 2.0
+  HeartsZeroedAmount: 0.0
+  CommandsAfterZeroing:
   - "tempban %player% 7d Try again later"
-MySQL: # MySQL Support, even when disabled I use SQLite for fast and non performance damaging methods
-  Enabled: false # Enable MySQL over SQLite
-  AutoReconnect: false # Should MySQL Auto Reconnect with connection is lost?
-  Host: 127.0.0.1 # MySQL IP Address
-  Database: database # MySQL Database you want to store data in
-  Username: LifeSteal # MySQL account username
-  Password: '12345' # MySQL account password
-  Port: 3306 # MySQL Port
-TAB: # Should the tab show how many lives the player has?
-  Enabled: false # Enable Tab Feature
-  Colors: # List of colors
-    - "100:&a" # 100 = The highest amount of hearts for the color | &a = the color for everyone below 100 hearts
-    - "10:&e" # This will have all players with 10 or less hearts with the color e (yellow)
-    - "5:&c" # This will have all players with 5 or less hearst with the color c (red)
+MySQL: 
+  Enabled: false
+  AutoReconnect: false
+  Host: 127.0.0.1
+  Database: database
+  Username: LifeSteal
+  Password: '12345'
+  Port: 3306
+TAB:
+  Enabled: false
+  Colors:
+    - "100:&a"
+    - "10:&e"
+    - "5:&c"
+HeartCanaster:
+  Enabled: false
+  AmountGive: 2.0
+  Item:
+    Material: PLAYER_HEAD
+    Amount: 1
+    DisplayName: "Heart Canaster"
+    Lore:
+    - "Right click this item to get a heart"
+  Recipe:
+    Type: Shaped
+    Contents:
+    - "*:DIAMOND"
+    - "-:GOLDEN_APPLE"
+    Shape:
+    - "***"
+    - "*-*"
+    - "***"
 Messages:
-  NoPermissions: "&cYou do not have permission to do that." # Message sent when a player does not have perms for a command
-  PlayerNotOnline: "&c%player% is not online" # Message sent when the target player is offline
-  NotANumber: "&cThats not a valid number" # Message sent when the argument isnt a number
-  HeartsSet: "&cYour hearts have been set to %amount%" # Message sent to player when their hearts have been set (through commands)
-  HeartsLost: "&cYou have lost %amount% hearts, you now have %total% left" # Message sent when player loses hearts (through commands or death)
-  HeartsGained: "&cYou have gained %amount% hearts, you now have %total%" # Message sent when player gains hearts (through commands or kills
+  NoPermissions: "&cYou do not have permission to do that."
+  PlayerNotOnline: "&c%player% is not online"
+  NotANumber: "&cThats not a valid number"
+  HeartsSet: "&cYour hearts have been set to %amount%"
+  HeartsLost: "&cYou have lost %amount% hearts, you now have %total% left"
+  HeartsGained: "&cYou have gained %amount% hearts, you now have %total%"
 ```
 ## Permissions
 ```YAML
