@@ -14,6 +14,7 @@ import com.gamerduck.configs.values;
 import com.gamerduck.enums.LifeReason;
 import com.gamerduck.events.LifeGainEvent;
 import com.gamerduck.events.LifeLostEvent;
+import com.gamerduck.gui.DatabaseEditor;
 import com.gamerduck.objects.LifeStealPlayer;
 
 public class LifeStealCommand implements TabExecutor {
@@ -27,6 +28,7 @@ public class LifeStealCommand implements TabExecutor {
 			if (args.length == 0) {
 				p.sendMessage("&7[&cLifeStealSMP&7] LifeStealSMP made by GamerDuck123");
 				p.sendMessage(" &c- /lifesteal reload");
+				p.sendMessage(" &c- /lifesteal dbeditor");
 				p.sendMessage(" &c- /lifesteal life (give | remove | set) (player) (amount)");
 				p.sendMessage(" &c- /lifesteal convert (VoodooLifeSteal)");
 			} else {
@@ -58,6 +60,10 @@ public class LifeStealCommand implements TabExecutor {
 					    p.sendMessage("&cNow converting everyone from Voodoo's LifeStealSMP plugin");	
 					    LifeStealMain.a().getAPI().getServer().getOnlinePlayers().forEach(pl -> pl.convertFrom("VoodooLifeSteal"));
 					}
+				} else if (args[0].equalsIgnoreCase("dbeditor")) {
+					if (args.length < 1) return p.sendMessage("&cCorrect Usage: /lifesteal dbeditor");
+					DatabaseEditor dbEditor = new DatabaseEditor();
+					p.getPlayer().openInventory(dbEditor.openPage(1));
 				}
 			}
 		}

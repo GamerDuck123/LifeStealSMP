@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.bukkit.plugin.Plugin;
@@ -90,6 +91,18 @@ public class Database {
         }
         return false;
     } 
+    
+    public ArrayList<String> getAllUUIDS() {
+    	ArrayList<String> uuids = new ArrayList<String>();
+    	try (PreparedStatement select = connection.prepareStatement("SELECT UUID FROM heartdata")) {
+            try (ResultSet result = select.executeQuery()) {
+                while(result.next()) {
+                	uuids.add(result.getString("UUID"));
+                }
+            }
+        } catch (SQLException ex) {ex.printStackTrace();}
+    	return uuids;
+    }
     
 
 }

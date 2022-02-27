@@ -21,6 +21,24 @@ TAB:
     - "100:&a"
     - "10:&e"
     - "5:&c"
+HeartCanaster:
+  Enabled: false
+  AmountGive: 2.0
+  Item:
+    Material: PLAYER_HEAD
+    Amount: 1
+    DisplayName: "Heart Canaster"
+    Lore:
+    - "Right click this item to get a heart"
+  Recipe:
+    Type: Shaped
+    Contents:
+    - "*:DIAMOND"
+    - "-:GOLDEN_APPLE"
+    Shape:
+    - "***"
+    - "*-*"
+    - "***"
 Messages:
   NoPermissions: "&cYou do not have permission to do that."
   PlayerNotOnline: "&c%player% is not online"
