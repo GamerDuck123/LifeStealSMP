@@ -9,6 +9,7 @@ import com.gamerduck.configs.Database;
 import com.gamerduck.configs.values;
 import com.gamerduck.handlers.PlayerHeartsHandler;
 import com.gamerduck.handlers.ServerHandlers;
+import com.gamerduck.objects.LifeStealPlayer;
 import com.gamerduck.objects.LifeStealServer;
 
 public class LifeStealAPI {
@@ -43,7 +44,9 @@ public class LifeStealAPI {
 	}
 	
 	public void onDisable(Plugin pl) {
-		Bukkit.getServer().getOnlinePlayers().forEach(p -> p.kickPlayer("Server restart"));
+		Bukkit.getServer().getOnlinePlayers().forEach(p -> {
+			db.storeHearts(p.getUniqueId().toString(), p.getHealthScale());
+		});
 		db.close();
 	}
 	

@@ -2,6 +2,8 @@ package com.gamerduck;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gamerduck.commands.LifeStealCommand;
@@ -38,4 +40,5 @@ public class LifeStealMain extends JavaPlugin {
 	public LifeStealAPI getAPI() {return LifeStealAPI.a();}
 	public LifeStealServer getLifeStealServer() {return LifeStealAPI.a().getServer();}
 	public NamespacedKey getCanasterKey() {return key;}
+	
 }
