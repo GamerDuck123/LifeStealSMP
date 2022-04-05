@@ -29,6 +29,8 @@ public class HeartCanasterUse implements Listener {
 					Bukkit.getServer().getPluginManager().callEvent(event);
 					if (event.isCancelled()) return;
 					e.setCancelled(true);
+					if (e.getItem().getAmount() == 1) e.getItem().setAmount(0);
+					else e.getItem().setAmount(e.getItem().getAmount() - 1);
 					p.addHearts(values.HEARTCANASTER_HEARTS_AMOUNT);
 					p.sendMessage(values.MESSAGES_HEARTS_GAINED.
 							replaceAll("%amount%", "" + values.HEARTCANASTER_HEARTS_AMOUNT)
