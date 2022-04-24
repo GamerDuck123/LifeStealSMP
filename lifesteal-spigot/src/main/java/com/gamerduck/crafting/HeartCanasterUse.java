@@ -25,7 +25,7 @@ public class HeartCanasterUse implements Listener {
 				LifeStealPlayer p = LifeStealMain.a().getLifeStealServer().getPlayer(e.getPlayer());
 				if (e.getAction() == Action.RIGHT_CLICK_AIR
 						|| e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-					HeartCanasterUseEvent event = new HeartCanasterUseEvent(p.getPlayer());
+					HeartCanasterUseEvent event = new HeartCanasterUseEvent(p);
 					Bukkit.getServer().getPluginManager().callEvent(event);
 					if (event.isCancelled()) return;
 					e.setCancelled(true);

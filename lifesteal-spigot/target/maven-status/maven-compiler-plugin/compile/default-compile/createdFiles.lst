@@ -2,5 +2,7 @@ com\gamerduck\crafting\HeartCanasterUse.class
 com\gamerduck\gui\DatabaseEditor.class
 com\gamerduck\crafting\HeartCanaster.class
 com\gamerduck\LifeStealMain.class
+com\gamerduck\listeners\DeathListener.class
+com\gamerduck\listeners\DamageListener.class
 com\gamerduck\gui\Page.class
 com\gamerduck\commands\LifeStealCommand.class

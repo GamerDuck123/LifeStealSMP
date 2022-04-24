@@ -1,5 +1,6 @@
 Defaults:
   ConvertFrom: ""
+  ShouldDamageScaleWithHealth: false
   StartHeartAmount: 20.0
   LoseHeartsOnNonPlayerDeath: false
   HeartsLostOnDeath: 2.0

@@ -5,20 +5,20 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import com.gamerduck.enums.LifeReason;
+import com.gamerduck.objects.LifeStealPlayer;
 
 public class HeartCanasterUseEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-	public Player player;
+	public LifeStealPlayer player;
 	public boolean canceled;
 	
-	public HeartCanasterUseEvent(Player player) {
+	public HeartCanasterUseEvent(LifeStealPlayer player) {
 		this.player = player;
 		this.canceled = false;
 	}
 	
-	public Player getPlayer() {
+	public LifeStealPlayer getPlayer() {
 		return player;
 	}
 	

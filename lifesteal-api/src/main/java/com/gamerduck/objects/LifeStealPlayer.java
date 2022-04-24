@@ -11,7 +11,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
-import com.gamerduck.LifeStealAPI;
 import com.gamerduck.configs.values;
 
 import net.md_5.bungee.api.ChatColor;
@@ -27,8 +26,8 @@ public class LifeStealPlayer {
 		this.uuid = p.getUniqueId();
 		this.uuidstring = p.getUniqueId().toString();
 		p.setHealthScaled(true);
-		if (LifeStealAPI.a().getDatabase().retrieveHearts(uuidstring) != -1d) {
-			p.setHealthScale(LifeStealAPI.a().getDatabase().retrieveHearts(uuidstring));
+		if (LifeStealServer.a().getDatabase().retrieveHearts(uuidstring) != -1d) {
+			p.setHealthScale(LifeStealServer.a().getDatabase().retrieveHearts(uuidstring));
 		} else {
 			if (values.DEFAULT_CONVERT_FROM == null && values.DEFAULT_CONVERT_FROM.equalsIgnoreCase("")) {
 				p.setHealthScale(values.DEFAULT_HEART_AMOUNT);
@@ -50,7 +49,7 @@ public class LifeStealPlayer {
 	}
 	
 	public void onQuit() {
-		LifeStealAPI.a().getDatabase().storeHearts(uuidstring, p.getHealthScale());
+		LifeStealServer.a().getDatabase().storeHearts(uuidstring, p.getHealthScale());
 	}
 	
 	public Player getPlayer() {return p;}

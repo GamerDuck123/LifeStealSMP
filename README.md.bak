@@ -6,7 +6,7 @@
 ```YAML
 Defaults:
   ConvertFrom: "" # This will auto fill out when you do /lifesteal convert
-  ShouldDamageScaleWithHealth: false # Should damage scale with health i.e 40 health = double damage than normal
+  ShouldDamageScaleWithHealth: false # Should damage scale with health i.e 40 health = double damage
   StartHeartAmount: 20.0 # The amount of hearts a player starts with
   LoseHeartsOnNonPlayerDeath: false # Does a player lose hearts when killed by the enviroment?
   HeartsLostOnDeath: 2.0 # How many hearts are lost on death (2 = 1 full heart)

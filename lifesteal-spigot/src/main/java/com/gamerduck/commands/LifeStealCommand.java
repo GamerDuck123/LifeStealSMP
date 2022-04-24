@@ -45,20 +45,20 @@ public class LifeStealCommand implements TabExecutor {
 						target.setHearts(amount);
 						target.sendMessage(values.MESSAGES_HEARTS_SET.replaceAll("%amount%", args[3]));
 					} else if (args[1].equalsIgnoreCase("remove")) {
-						LifeLostEvent event = new LifeLostEvent(target.getPlayer(), LifeReason.COMMAND, amount);
+						LifeLostEvent event = new LifeLostEvent(target, LifeReason.COMMAND, amount);
 						Bukkit.getServer().getPluginManager().callEvent(event);	
 					} else if (args[1].equalsIgnoreCase("give")) {
-						LifeGainEvent event = new LifeGainEvent(target.getPlayer(), LifeReason.COMMAND, amount);
+						LifeGainEvent event = new LifeGainEvent(target, LifeReason.COMMAND, amount);
 						Bukkit.getServer().getPluginManager().callEvent(event);
 					}
 				} else if (args[0].equalsIgnoreCase("convert")) {
 					if (args.length < 2) return p.sendMessage("&cCorrect Usage: /lifesteal convert (VoodooLifeSteal)");
 					if (args[1].equalsIgnoreCase("VoodooLifeSteal")) {
-						LifeStealMain.a().getAPI().getConfig().set("Defaults.ConvertFrom", "VoodooLifeSteal");
-						LifeStealMain.a().getAPI().saveConfig();
-						LifeStealMain.a().getAPI().reloadConfig();
+						LifeStealMain.a().getConfig().set("Defaults.ConvertFrom", "VoodooLifeSteal");
+						LifeStealMain.a().saveConfig();
+						LifeStealMain.a().reloadConfig();
 					    p.sendMessage("&cNow converting everyone from Voodoo's LifeStealSMP plugin");	
-					    LifeStealMain.a().getAPI().getServer().getOnlinePlayers().forEach(pl -> pl.convertFrom("VoodooLifeSteal"));
+					    LifeStealMain.a().getLifeStealServer().getOnlinePlayers().forEach(pl -> pl.convertFrom("VoodooLifeSteal"));
 					}
 				} else if (args[0].equalsIgnoreCase("dbeditor")) {
 					if (args.length < 1) return p.sendMessage("&cCorrect Usage: /lifesteal dbeditor");

@@ -18,7 +18,7 @@ public class DatabaseEditor {
 	public DatabaseEditor() {
 		inv = Bukkit.createInventory(null, 54);
 		playerUUIDs = new ArrayList<String>();
-		LifeStealMain.a().getAPI().getDatabase().getAllUUIDS().forEach(s -> playerUUIDs.add(s));
+		LifeStealMain.a().getLifeStealServer().getDatabase().getAllUUIDS().forEach(s -> playerUUIDs.add(s));
 		pages = new HashMap<Integer, Page>();
 		int amount = 0;
     	int page = 1;
