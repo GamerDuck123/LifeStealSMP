@@ -6,6 +6,9 @@
 ```YAML
 Defaults:
   ConvertFrom: "" # This will auto fill out when you do /lifesteal convert
+  ShouldWithDrawCommandExist: true # Should withdraw command be enabled
+  ShouldKeepLastPlayerAsDamager: true # Should the attacking player be last damager when the player dies
+  HowLongShouldPlayerBeLastDamager: 20 # How long in SECONDS should the player be considered the last damager
   ShouldDamageScaleWithHealth: false # Should damage scale with health i.e 40 health = double damage than normal
   StartHeartAmount: 20.0 # The amount of hearts a player starts with
   LoseHeartsOnNonPlayerDeath: false # Does a player lose hearts when killed by the enviroment?
