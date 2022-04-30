@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
+import org.bukkit.scheduler.BukkitTask;
 
 import com.gamerduck.configs.values;
 
@@ -20,11 +22,13 @@ public class LifeStealPlayer {
 	Player p;
 	UUID uuid;
 	String uuidstring;
+	Player lastDamager;
 	
 	public LifeStealPlayer(Player p) {
 		this.p = p;
 		this.uuid = p.getUniqueId();
 		this.uuidstring = p.getUniqueId().toString();
+		this.lastDamager = null;
 		p.setHealthScaled(true);
 		if (LifeStealServer.a().getDatabase().retrieveHearts(uuidstring) != -1d) {
 			p.setHealthScale(LifeStealServer.a().getDatabase().retrieveHearts(uuidstring));
@@ -107,5 +111,25 @@ public class LifeStealPlayer {
 	    try { Double.parseDouble(strNum); }
 	    catch (NumberFormatException nfe) { return false; }
 	    return true;
+	}
+	
+	public Player getLastDamager() {
+		return lastDamager;
+	}
+	
+	BukkitTask lastDamagerTask;
+	public void setLastDamager(Player player) {
+		lastDamager = player;
+		if (lastDamagerTask != null) {lastDamagerTask.cancel();}
+		lastDamagerTask = Bukkit.getScheduler().runTaskLater(LifeStealServer.a().getPlugin(), new Runnable() {
+            @Override
+            public void run() {
+            	clearLastDamager();
+            }
+    	}, values.HOW_LONG_SHOULD_PLAYER_BE_LAST_DAMAGER * 20);
+	}
+	
+	public void clearLastDamager() {
+		lastDamager = null;
 	}
 }

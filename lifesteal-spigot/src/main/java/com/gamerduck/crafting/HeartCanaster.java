@@ -1,7 +1,6 @@
 package com.gamerduck.crafting;
 
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -47,5 +46,9 @@ public class HeartCanaster extends ItemStack {
 				break;
 		}
 		if (recipe != null) LifeStealMain.a().getServer().addRecipe(recipe);
+	}
+	
+	public ItemStack getItem() {
+		return this;
 	}
 }

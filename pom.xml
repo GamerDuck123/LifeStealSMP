@@ -23,14 +23,6 @@
 	  	<url>https://papermc.io/repo/repository/maven-public/</url>
 	  </repository>
 	  <repository>
-	  	<id>craftbukkit-repo</id>
-	  	<url>http://192.168.0.73:8081/repository/bukkit-apis/</url>
-	  </repository>
-	  <repository>
-	  	<id>ducks-repo</id>
-	  	<url>http://192.168.0.73:8081/repository/ducks-apis/</url>
-	  </repository>
-	  <repository>
 	  	<id>jitpack.io</id>
 	  	<url>https://jitpack.io</url>
 	  </repository>

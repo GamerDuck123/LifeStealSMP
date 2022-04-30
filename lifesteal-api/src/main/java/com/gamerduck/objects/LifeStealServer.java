@@ -95,6 +95,9 @@ public class LifeStealServer {
 	public void reload() {
 		values.load(config);
 	}
+	public Plugin getPlugin() {
+		return pl;
+	}
 	
 }
 class Events implements Listener {

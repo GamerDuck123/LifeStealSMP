@@ -3,6 +3,8 @@ com\gamerduck\gui\DatabaseEditor.class
 com\gamerduck\crafting\HeartCanaster.class
 com\gamerduck\LifeStealMain.class
 com\gamerduck\listeners\DeathListener.class
-com\gamerduck\listeners\DamageListener.class
+com\gamerduck\listeners\ScaleDamageListener.class
+com\gamerduck\listeners\LastDamagerListener.class
 com\gamerduck\gui\Page.class
 com\gamerduck\commands\LifeStealCommand.class
+com\gamerduck\commands\WithdrawCommand.class

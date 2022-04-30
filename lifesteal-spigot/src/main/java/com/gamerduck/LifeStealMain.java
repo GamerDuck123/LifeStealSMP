@@ -11,11 +11,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gamerduck.commands.LifeStealCommand;
+import com.gamerduck.commands.WithdrawCommand;
 import com.gamerduck.configs.values;
 import com.gamerduck.crafting.HeartCanaster;
 import com.gamerduck.crafting.HeartCanasterUse;
-import com.gamerduck.listeners.DamageListener;
 import com.gamerduck.listeners.DeathListener;
+import com.gamerduck.listeners.LastDamagerListener;
+import com.gamerduck.listeners.ScaleDamageListener;
 import com.gamerduck.objects.LifeStealServer;
 
 import net.md_5.bungee.api.ChatColor;
@@ -27,6 +29,7 @@ public class LifeStealMain extends JavaPlugin {
 	LifeStealServer server;
 	File file;
 	FileConfiguration config;
+	HeartCanaster canaster;
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -34,12 +37,18 @@ public class LifeStealMain extends JavaPlugin {
 		TabExecutor cmd = new LifeStealCommand();
 		getCommand("lifesteal").setExecutor(cmd);
 		getCommand("lifesteal").setTabCompleter(cmd);
+		if (values.SHOULD_WITHDRAW_COMMAND_EXIST) {
+			key = new NamespacedKey(LifeStealMain.a(), "heart_canaster");
+			canaster = new HeartCanaster();
+			getCommand("withdraw").setExecutor(new WithdrawCommand());
+		}
 		if (values.HEARTCANASTER_ENABLED) {
 			key = new NamespacedKey(LifeStealMain.a(), "heart_canaster");
-			new HeartCanaster();
+			canaster = new HeartCanaster();
 			getServer().getPluginManager().registerEvents(new HeartCanasterUse(), this);
 		}
-		if (values.SHOULD_DAMAGE_SCALE_WITH_HEALTH) getServer().getPluginManager().registerEvents(new DamageListener(), this);
+		if (!values.SHOULD_DAMAGE_SCALE_WITH_HEALTH) getServer().getPluginManager().registerEvents(new ScaleDamageListener(), this);
+		if (values.SHOULD_KEEP_LAST_PLAYER_AS_DAMAGER) getServer().getPluginManager().registerEvents(new LastDamagerListener(), this);
 		getServer().getPluginManager().registerEvents(new DeathListener(), this);
 	}
 	
@@ -51,6 +60,7 @@ public class LifeStealMain extends JavaPlugin {
 	public static LifeStealMain a() {return instance;}
 	public LifeStealServer getLifeStealServer() {return server;}
 	public NamespacedKey getCanasterKey() {return key;}
+	public HeartCanaster getCanaster() {return canaster;}
 	
 	private FileConfiguration loadConfig() {
 		if (!getDataFolder().exists()) { getDataFolder().mkdir(); }

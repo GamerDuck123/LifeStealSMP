@@ -2,7 +2,9 @@ C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src
 C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\commands\LifeStealCommand.java
 C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\listeners\DeathListener.java
 C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\gui\Page.java
-C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\listeners\DamageListener.java
+C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\listeners\LastDamagerListener.java
 C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\crafting\HeartCanasterUse.java
 C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\LifeStealMain.java
 C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\gui\DatabaseEditor.java
+C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\listeners\ScaleDamageListener.java
+C:\Users\gtpal\Desktop\Workspaces\LifeStealSMP\LifeStealSMP\lifesteal-spigot\src\main\java\com\gamerduck\commands\WithdrawCommand.java

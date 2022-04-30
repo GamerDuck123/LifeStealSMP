@@ -19,9 +19,14 @@ public class DeathListener implements Listener {
 	public void onDeath(EntityDeathEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
+			LifeStealPlayer pl = LifeStealServer.a().getPlayer(p);
 			if (p.getLastDamageCause() != null && p.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK
 					&& p.getKiller() instanceof Player) {
 				Player killer = p.getKiller();
+				loseLife(p, values.DEFAULT_HEARTS_LOST_ON_DEATH, LifeReason.KILL);
+				gainLife(killer, values.DEFAULT_HEARTS_GAINED_ON_KILL, LifeReason.KILL);
+			} else if (pl.getLastDamager() != null) {
+				Player killer = pl.getLastDamager();
 				loseLife(p, values.DEFAULT_HEARTS_LOST_ON_DEATH, LifeReason.KILL);
 				gainLife(killer, values.DEFAULT_HEARTS_GAINED_ON_KILL, LifeReason.KILL);
 			} else {

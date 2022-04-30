@@ -6,3 +6,5 @@ api-version: 1.18
 commands:
   lifesteal:
     description: main command
+  withdraw:
+    description: main command

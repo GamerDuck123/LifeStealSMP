@@ -1,5 +1,8 @@
 Defaults:
   ConvertFrom: ""
+  ShouldWithDrawCommandExist: true
+  ShouldKeepLastPlayerAsDamager: true
+  HowLongShouldPlayerBeLastDamager: 20
   ShouldDamageScaleWithHealth: false
   StartHeartAmount: 20.0
   LoseHeartsOnNonPlayerDeath: false
@@ -47,3 +50,7 @@ Messages:
   HeartsSet: "&cYour hearts have been set to %amount%"
   HeartsLost: "&cYou have lost %amount% hearts, you now have %total% left"
   HeartsGained: "&cYou have gained %amount% hearts, you now have %total%"
+  CantBeLeftWithLessThanOneHeart: "&cYou cannot have less than 1 heart left"
+  HeartsWithdrawn: "&aYou have withdrawn %amount% hearts"
+  HasToBeWholeNumber: "&cNumber has to be a whole number"
+  WithdrawCorrectUsage: "&cCorrect usage: /withdraw (amount)"

@@ -8,3 +8,4 @@ com\gamerduck\events\LifeLostEvent.class
 com\gamerduck\configs\Database.class
 com\gamerduck\objects\LifeStealServer.class
 com\gamerduck\events\HeartCanasterCraftEvent.class
+com\gamerduck\objects\LifeStealPlayer$1.class
