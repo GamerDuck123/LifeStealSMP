@@ -50,6 +50,7 @@ public class DeathListener implements Listener {
 			p.subHearts(amount);
 			p.sendMessage(values.MESSAGES_HEARTS_LOST.replaceAll("%amount%", "" + amount).replaceAll("%total%", "" + p.getHearts()));
 			p.updateTABColor();
+			values.DEFAULT_AFTER_DEATH_COMMANDS.forEach(cmd -> Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), cmd.replaceAll("%player%", p.getName())));
 		}
 	}
 	
@@ -60,7 +61,8 @@ public class DeathListener implements Listener {
 		p.addHearts(amount);
 		p.sendMessage(values.MESSAGES_HEARTS_GAINED.replaceAll("%amount%", "" + amount).replaceAll("%total%", "" + p.getHearts()));
 		p.updateTABColor();
-		
+		values.DEFAULT_AFTER_KILL_COMMANDS.forEach(cmd -> Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), cmd.replaceAll("%player%", p.getName())));
+
 	}
 	
 }

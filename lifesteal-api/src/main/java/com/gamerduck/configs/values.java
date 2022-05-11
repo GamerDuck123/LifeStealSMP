@@ -14,7 +14,8 @@ public class values {
 						 MESSAGES_HAS_TO_BE_WHOLE_NUMBER, MESSAGES_WITHDRAW_CORRECT_USAGE;
 	public static Integer MYSQL_PORT, HEARTCANASTER_ITEM_AMOUNT, HOW_LONG_SHOULD_PLAYER_BE_LAST_DAMAGER;
 	public static Double DEFAULT_HEART_AMOUNT, DEFAULT_HEARTS_LOST_ON_DEATH, DEFAULT_HEARTS_GAINED_ON_KILL, DEFAULT_HEARTS_ZEROED_AMOUNT, HEARTCANASTER_HEARTS_AMOUNT;
-	public static List<String> DEFAULT_ZEROED_COMMANDS, TAB_COLORS, HEARTCANASTER_RECIPE_CONTENTS, HEARTCANASTER_RECIPE_SHAPE, HEARTCANASTER_ITEM_LORE;
+	public static List<String> DEFAULT_ZEROED_COMMANDS, TAB_COLORS, HEARTCANASTER_RECIPE_CONTENTS, HEARTCANASTER_RECIPE_SHAPE, HEARTCANASTER_ITEM_LORE,
+	DEFAULT_AFTER_DEATH_COMMANDS, DEFAULT_AFTER_KILL_COMMANDS;
 	
 	private static FileConfiguration config;
 	
@@ -39,6 +40,8 @@ public class values {
 		DEFAULT_HEARTS_LOST_ON_DEATH = getDouble("Defaults.HeartsLostOnDeath");
 		DEFAULT_HEARTS_GAINED_ON_KILL = getDouble("Defaults.HeartsGainedOnKill");
 		DEFAULT_HEARTS_ZEROED_AMOUNT = getDouble("Defaults.HeartsZeroedAmount");
+		DEFAULT_AFTER_DEATH_COMMANDS = getStringList("Defaults.CommandsAfterDeath");
+		DEFAULT_AFTER_KILL_COMMANDS = getStringList("Defaults.CommandsAfterKill");
 		DEFAULT_ZEROED_COMMANDS = getStringList("Defaults.CommandsAfterZeroing");
 		MESSAGES_NOPERMISSIONS = getString("Messages.NoPermissions");
 		MESSAGES_PLAYER_NOT_ONLINE = getString("Messages.PlayerNotOnline");
@@ -52,9 +55,8 @@ public class values {
 		MESSAGES_WITHDRAW_CORRECT_USAGE = getString("Messages.WithdrawCorrectUsage");
 		TAB_ENABLED = getBoolean("TAB.Enabled");
 		if (TAB_ENABLED) TAB_COLORS = getStringList("TAB.Colors");
-		
 		HEARTCANASTER_ENABLED = getBoolean("HeartCanaster.Enabled");
-		if (HEARTCANASTER_ENABLED == true) {
+		if (HEARTCANASTER_ENABLED == true || SHOULD_WITHDRAW_COMMAND_EXIST == true) {
 			HEARTCANASTER_RECIPE_TYPE = getString("HeartCanaster.Recipe.Type");	
 			HEARTCANASTER_RECIPE_CONTENTS = getStringList("HeartCanaster.Recipe.Contents");
 			if (HEARTCANASTER_RECIPE_TYPE.equalsIgnoreCase("Shaped")) {HEARTCANASTER_RECIPE_SHAPE = getStringList("HeartCanaster.Recipe.Shape");}

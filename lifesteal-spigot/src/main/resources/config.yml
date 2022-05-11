@@ -9,6 +9,8 @@ Defaults:
   HeartsLostOnDeath: 2.0
   HeartsGainedOnKill: 2.0
   HeartsZeroedAmount: 0.0
+  CommandsAfterDeath: []
+  CommandsAfterKill: []
   CommandsAfterZeroing:
   - "tempban %player% 7d Try again later"
 MySQL: 
@@ -26,7 +28,7 @@ TAB:
     - "10:&e"
     - "5:&c"
 HeartCanaster:
-  Enabled: false
+  Enabled: true
   AmountGive: 2.0
   Item:
     Material: PLAYER_HEAD

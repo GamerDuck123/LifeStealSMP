@@ -43,8 +43,10 @@ public class LifeStealMain extends JavaPlugin {
 			getCommand("withdraw").setExecutor(new WithdrawCommand());
 		}
 		if (values.HEARTCANASTER_ENABLED) {
-			key = new NamespacedKey(LifeStealMain.a(), "heart_canaster");
-			canaster = new HeartCanaster();
+			if (canaster == null) {
+				key = new NamespacedKey(LifeStealMain.a(), "heart_canaster");
+				canaster = new HeartCanaster();
+			}
 			getServer().getPluginManager().registerEvents(new HeartCanasterUse(), this);
 		}
 		if (!values.SHOULD_DAMAGE_SCALE_WITH_HEALTH) getServer().getPluginManager().registerEvents(new ScaleDamageListener(), this);

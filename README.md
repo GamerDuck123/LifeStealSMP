@@ -6,12 +6,17 @@
 ```YAML
 Defaults:
   ConvertFrom: "" # This will auto fill out when you do /lifesteal convert
+  ShouldWithDrawCommandExist: true # Should withdraw command be enabled
+  ShouldKeepLastPlayerAsDamager: true # Should the attacking player be last damager when the player dies
+  HowLongShouldPlayerBeLastDamager: 20 # How long in SECONDS should the player be considered the last damager
   ShouldDamageScaleWithHealth: false # Should damage scale with health i.e 40 health = double damage than normal
   StartHeartAmount: 20.0 # The amount of hearts a player starts with
   LoseHeartsOnNonPlayerDeath: false # Does a player lose hearts when killed by the enviroment?
   HeartsLostOnDeath: 2.0 # How many hearts are lost on death (2 = 1 full heart)
   HeartsGainedOnKill: 2.0 # How many hearts are gained on a player kill (2 = 1 full heart)
   HeartsZeroedAmount: 0.0 # How many hearts does the player have to have until they "zero out" or loses
+  CommandsAfterDeath: [] # The list of commands to run when a player loses a life
+  CommandsAfterKill: [] # The list of commands to run when a player gains a life
   CommandsAfterZeroing: # The command to run when a player hits the zero out amount
   - "tempban %player% 7d Try again later"
 MySQL: # MySQL Support, even when disabled I use SQLite for fast and non performance damaging methods
