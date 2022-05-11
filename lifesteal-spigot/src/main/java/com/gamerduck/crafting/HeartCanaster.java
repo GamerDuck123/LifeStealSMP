@@ -20,6 +20,14 @@ public class HeartCanaster extends ItemStack {
 		meta.setLore(values.HEARTCANASTER_ITEM_LORE);
 		meta.getPersistentDataContainer().set(LifeStealMain.a().getCanasterKey(), PersistentDataType.STRING, "heart_canaster");
 		setItemMeta(meta);
+	
+	}
+	
+	public ItemStack getItem() {
+		return this;
+	}
+	
+	public void setRecipe() {
 		
 		Recipe recipe = null;
 		switch(values.HEARTCANASTER_RECIPE_TYPE.toUpperCase()) {
@@ -46,9 +54,5 @@ public class HeartCanaster extends ItemStack {
 				break;
 		}
 		if (recipe != null) LifeStealMain.a().getServer().addRecipe(recipe);
-	}
-	
-	public ItemStack getItem() {
-		return this;
 	}
 }

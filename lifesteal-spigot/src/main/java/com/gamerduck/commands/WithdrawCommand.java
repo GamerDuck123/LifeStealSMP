@@ -26,6 +26,7 @@ public class WithdrawCommand implements CommandExecutor, TabExecutor {
 				if (amount > (p.getHearts() - 2)) {
 					return p.sendMessage(values.MESSAGES_LEFT_WITH_ONE_HEART);
 				} else {
+					amount *= 2;
 					p.subHearts(Double.valueOf(amount));
 					for (int i = 1; i <= amount / values.HEARTCANASTER_HEARTS_AMOUNT; i++) p.getPlayer().getInventory().addItem(LifeStealMain.a().getCanaster().getItem());
 					return p.sendMessage(values.MESSAGES_HEARTS_WITHDRAWN.replaceAll("%amount%", args[0]));
@@ -40,7 +41,6 @@ public class WithdrawCommand implements CommandExecutor, TabExecutor {
 	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	private boolean isInteger(String strNum) {

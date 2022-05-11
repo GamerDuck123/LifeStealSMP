@@ -48,9 +48,11 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor {
 					} else if (args[1].equalsIgnoreCase("remove")) {
 						LifeLostEvent event = new LifeLostEvent(target, LifeReason.COMMAND, amount);
 						Bukkit.getServer().getPluginManager().callEvent(event);	
+						target.setHearts(target.getHearts() - amount);
 					} else if (args[1].equalsIgnoreCase("give")) {
 						LifeGainEvent event = new LifeGainEvent(target, LifeReason.COMMAND, amount);
 						Bukkit.getServer().getPluginManager().callEvent(event);
+						target.setHearts(target.getHearts() + amount);
 					}
 				} else if (args[0].equalsIgnoreCase("convert")) {
 					if (args.length < 2) return p.sendMessage("&cCorrect Usage: /lifesteal convert (VoodooLifeSteal)");
