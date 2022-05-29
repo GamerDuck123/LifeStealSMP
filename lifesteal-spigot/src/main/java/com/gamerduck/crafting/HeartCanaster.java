@@ -1,6 +1,9 @@
 package com.gamerduck.crafting;
 
+import java.util.List;
+
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -9,34 +12,30 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import com.gamerduck.LifeStealMain;
-import com.gamerduck.configs.values;
 
 public class HeartCanaster extends ItemStack {
-	public HeartCanaster() {
-		super(Material.matchMaterial(values.HEARTCANASTER_ITEM_MATERIAL), values.HEARTCANASTER_ITEM_AMOUNT);
+	public HeartCanaster(FileConfiguration config) {
+		super(Material.matchMaterial(config.getString("HeartCanaster.Item.Material")), 1);
 		
-		ItemMeta meta = getItemMeta();
-		meta.setDisplayName(values.HEARTCANASTER_ITEM_DISPLAYNAME);
-		meta.setLore(values.HEARTCANASTER_ITEM_LORE);
+		ItemMeta meta = super.getItemMeta();
+		meta.setDisplayName(config.getString("HeartCanaster.Item.DisplayName"));
+		meta.setLore(config.getStringList("HeartCanaster.Item.Lore"));
 		meta.getPersistentDataContainer().set(LifeStealMain.a().getCanasterKey(), PersistentDataType.STRING, "heart_canaster");
-		setItemMeta(meta);
+		super.setItemMeta(meta);
 	
 	}
 	
-	public ItemStack getItem() {
-		return this;
-	}
-	
-	public void setRecipe() {
-		
+	public void loadRecipe(FileConfiguration config) {
 		Recipe recipe = null;
-		switch(values.HEARTCANASTER_RECIPE_TYPE.toUpperCase()) {
+		List<String> shapeList = config.getStringList("HeartCanaster.Recipe.Shape");
+		List<String> contentsList = config.getStringList("HeartCanaster.Recipe.Contents");
+		switch(config.getString("HeartCanaster.Recipe.Type").toUpperCase()) {
 			case "SHAPED":
 				recipe = new ShapedRecipe(LifeStealMain.a().getCanasterKey(), this);
-				((ShapedRecipe) recipe).shape(values.HEARTCANASTER_RECIPE_SHAPE.get(0), 
-						  values.HEARTCANASTER_RECIPE_SHAPE.get(1), 
-						  values.HEARTCANASTER_RECIPE_SHAPE.get(2));
-				for (String contents : values.HEARTCANASTER_RECIPE_CONTENTS) {
+				((ShapedRecipe) recipe).shape(shapeList.get(0), 
+						shapeList.get(1), 
+						  shapeList.get(2));
+				for (String contents : contentsList) {
 					String[] content = contents.split(":");
 					if (Material.matchMaterial(content[1]) != null) {
 						((ShapedRecipe) recipe).setIngredient(content[0].charAt(0), Material.matchMaterial(content[1]));
@@ -45,7 +44,7 @@ public class HeartCanaster extends ItemStack {
 				break;
 			case "SHAPELESS":
 				recipe = new ShapelessRecipe(LifeStealMain.a().getCanasterKey(), this);
-				for (String contents : values.HEARTCANASTER_RECIPE_CONTENTS) {
+				for (String contents : contentsList) {
 					String[] content = contents.split(":");
 					if (Material.matchMaterial(content[1]) != null) {
 						((ShapelessRecipe) recipe).addIngredient(Material.matchMaterial(content[1]));

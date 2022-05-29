@@ -1,6 +1,7 @@
 package com.gamerduck.crafting;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -9,12 +10,21 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import com.gamerduck.GlobalMethods;
 import com.gamerduck.LifeStealMain;
-import com.gamerduck.configs.values;
 import com.gamerduck.events.HeartCanasterUseEvent;
 import com.gamerduck.objects.LifeStealPlayer;
 
-public class HeartCanasterUse implements Listener {
+public class HeartCanasterUse implements Listener, GlobalMethods {
+	
+	final double giveAmount;
+	final double maxHeartAmount;
+	
+	public HeartCanasterUse(FileConfiguration config) {
+		this.giveAmount = config.getDouble("HeartCanaster.AmountGive");
+		this.maxHeartAmount = config.getDouble("Defaults.MaxHeartAmount");
+	}
+	
 	@EventHandler
 	public void onUse(PlayerInteractEvent e) {
 		if (e.getItem() == null) return;
@@ -29,12 +39,14 @@ public class HeartCanasterUse implements Listener {
 					Bukkit.getServer().getPluginManager().callEvent(event);
 					if (event.isCancelled()) return;
 					e.setCancelled(true);
-					if (e.getItem().getAmount() == 1) e.getItem().setAmount(0);
-					else e.getItem().setAmount(e.getItem().getAmount() - 1);
-					p.addHearts(values.HEARTCANASTER_HEARTS_AMOUNT);
-					p.sendMessage(values.MESSAGES_HEARTS_GAINED.
-							replaceAll("%amount%", "" + values.HEARTCANASTER_HEARTS_AMOUNT)
-							.replaceAll("%total%", "" + p.getHearts()));
+					if ((p.getHearts() + giveAmount) > maxHeartAmount) {
+						p.sendMessage(tl("MaxHearts"));
+					}  else {
+						if (e.getItem().getAmount() == 1) e.getItem().setAmount(0);
+						else e.getItem().setAmount(e.getItem().getAmount() - 1);
+						p.addHearts(giveAmount);
+						p.sendMessage(tl("HeartsGained", giveAmount, p.getHearts()));
+					}
 				}
 			}
 		}

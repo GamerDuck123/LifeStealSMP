@@ -1,7 +1,8 @@
 com\gamerduck\events\LifeGainEvent.class
 com\gamerduck\objects\LifeStealPlayer.class
+com\gamerduck\configs\UTF8PropertiesControl.class
 com\gamerduck\objects\Events.class
-com\gamerduck\configs\values.class
+com\gamerduck\configs\FileResClassLoader.class
 com\gamerduck\events\HeartCanasterUseEvent.class
 com\gamerduck\enums\LifeReason.class
 com\gamerduck\events\LifeLostEvent.class

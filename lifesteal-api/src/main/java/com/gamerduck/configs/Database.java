@@ -8,8 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 import org.bukkit.plugin.Plugin;
+
+import com.gamerduck.objects.LifeStealServer;
 
 public class Database {
 
@@ -56,28 +59,32 @@ public class Database {
     }
     
     public void storeHearts(String UUID, Double hearts) {
-    	try (PreparedStatement insert = connection.prepareStatement("INSERT OR REPLACE INTO heartdata VALUES (?, ?)")) {
-            insert.setString(1, UUID);
-            insert.setDouble(2, hearts);
-            insert.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+    	LifeStealServer.a().getExecutor().execute(() -> {
+	    	try (PreparedStatement insert = connection.prepareStatement("INSERT OR REPLACE INTO heartdata VALUES (?, ?)")) {
+	            insert.setString(1, UUID);
+	            insert.setDouble(2, hearts);
+	            insert.executeUpdate();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+    	});
     }
     
-    public Double retrieveHearts(String UUID) {
-    	Double amount = -1d;
-    	if (hasData(UUID, "heartdata")) {
-	    	try (PreparedStatement select = connection.prepareStatement("SELECT HEARTS FROM heartdata WHERE UUID = ?")) {
-	            select.setString(1, UUID);
-	            try (ResultSet result = select.executeQuery()) {
-	                if (result.next()) {
-	                    amount = result.getDouble(1);
-	                }
-	            }
-	        } catch (SQLException ex) {ex.printStackTrace();}
-    	}
-    	return amount;
+    public void retrieveHearts(String UUID, Consumer<Double> amount) {
+    	LifeStealServer.a().getExecutor().execute(() -> {
+	    	Double a = -1d;
+	    	if (hasData(UUID, "heartdata")) {
+		    	try (PreparedStatement select = connection.prepareStatement("SELECT HEARTS FROM heartdata WHERE UUID = ?")) {
+		            select.setString(1, UUID);
+		            try (ResultSet result = select.executeQuery()) {
+		                if (result.next()) {
+		                    a = result.getDouble(1);
+		                }
+		            }
+		        } catch (SQLException ex) {ex.printStackTrace();}
+	    	}
+	    	amount.accept(a);
+    	});
     }
     
     public boolean hasData(String UUID, String table) {

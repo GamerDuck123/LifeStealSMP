@@ -1,10 +1,13 @@
 Defaults:
   ConvertFrom: ""
-  ShouldWithDrawCommandExist: true
+  ShouldWithdrawCommandExist: true
+  WithdrawMininum: 20.0
   ShouldKeepLastPlayerAsDamager: true
   HowLongShouldPlayerBeLastDamager: 20
   ShouldDamageScaleWithHealth: false
+  MaxHeartAmount: 60.0
   StartHeartAmount: 20.0
+  ZeroedRespawnAmount: 15.0
   LoseHeartsOnNonPlayerDeath: false
   HeartsLostOnDeath: 2.0
   HeartsGainedOnKill: 2.0
@@ -28,14 +31,13 @@ TAB:
     - "10:&e"
     - "5:&c"
 HeartCanaster:
-  Enabled: true
   AmountGive: 2.0
   Item:
     Material: PLAYER_HEAD
-    Amount: 1
     DisplayName: "Heart Canaster"
     Lore:
     - "Right click this item to get a heart"
+  RecipeEnabled: true
   Recipe:
     Type: Shaped
     Contents:
@@ -45,14 +47,3 @@ HeartCanaster:
     - "***"
     - "*-*"
     - "***"
-Messages:
-  NoPermissions: "&cYou do not have permission to do that."
-  PlayerNotOnline: "&c%player% is not online"
-  NotANumber: "&cThats not a valid number"
-  HeartsSet: "&cYour hearts have been set to %amount%"
-  HeartsLost: "&cYou have lost %amount% hearts, you now have %total% left"
-  HeartsGained: "&cYou have gained %amount% hearts, you now have %total%"
-  CantBeLeftWithLessThanOneHeart: "&cYou cannot have less than 1 heart left"
-  HeartsWithdrawn: "&aYou have withdrawn %amount% hearts"
-  HasToBeWholeNumber: "&cNumber has to be a whole number"
-  WithdrawCorrectUsage: "&cCorrect usage: /withdraw (amount)"

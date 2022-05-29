@@ -1,7 +1,10 @@
 package com.gamerduck.objects;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -14,50 +17,52 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
 import com.gamerduck.configs.Database;
-import com.gamerduck.configs.values;
+
+import lombok.Getter;
 
 public class LifeStealServer {
 	public static LifeStealServer instance;
 	public static LifeStealServer a() {return instance;}
-	ArrayList<LifeStealPlayer> players;
-	Server server;
-	FileConfiguration config;
-	Plugin pl;
-	Database db;
+	@Getter ArrayList<LifeStealPlayer> players;
+	final Server server;
+	@Getter final FileConfiguration config;
+	@Getter final Plugin plugin;
+	@Getter Database database;
+	@Getter ResourceBundle messages;
+    @Getter final ExecutorService executor;
 	
-	public LifeStealServer(Server server, Plugin pl, FileConfiguration config) {
+	public LifeStealServer(Server server, Plugin plugin, FileConfiguration config, ResourceBundle messages) {
 		instance = this;
 		this.server = server;
-		this.pl = pl;
+		this.plugin = plugin;
 		this.config = config;
+        executor = Executors.newSingleThreadExecutor();
 		players = new ArrayList<LifeStealPlayer>();
-		values.load(config);
-		if (values.MYSQL_ENABLED) {
-			try {db = new Database(pl, 
-					values.MYSQL_AUTORECONNECT,
-					values.MYSQL_HOST,
-					values.MYSQL_DATABASE,
-					values.MYSQL_USERNAME,
-					values.MYSQL_PASSWORD,
-					values.MYSQL_PORT);
+		if (config.getBoolean("MySQL.Enabled")) {
+			try {database = new Database(plugin, 
+					config.getBoolean("MySQL.AutoReconnect"),
+					config.getString("MySQL.Host"),
+					config.getString("MySQL.Database"),
+					config.getString("MySQL.Username"),
+					config.getString("MySQL.Password"),
+					config.getInt("MySQL.Port"));
 			} catch (Exception e) {e.printStackTrace();}
 		} else {
-			try {db = new Database(pl);
+			try {database = new Database(plugin);
 			} catch (Exception e) {e.printStackTrace();}
 		}
-		pl.getServer().getPluginManager().registerEvents(new Events(), pl);
+		plugin.getServer().getPluginManager().registerEvents(new Events(), plugin);
 	}
 	
 	public void onDisable(Plugin pl) {
 		Bukkit.getServer().getOnlinePlayers().forEach(p -> {
-			db.storeHearts(p.getUniqueId().toString(), p.getHealthScale());
+			database.storeHearts(p.getUniqueId().toString(), p.getHealthScale());
 		});
-		db.close();
+		executor.shutdownNow().forEach(r -> r.run());
+		database.close();
+		
 	}	
-
-	public Database getDatabase() {return db;}
 	
-	public ArrayList<LifeStealPlayer> getOnlinePlayers() {return players;}
 	public boolean addOnlinePlayer(Player player) {
 		return players.add(new LifeStealPlayer(player));
 	}
@@ -67,7 +72,7 @@ public class LifeStealServer {
 	public LifeStealPlayer getPlayer(String name) {
 		LifeStealPlayer player = null;
 		for (LifeStealPlayer p : players) {
-			if (p.getName().equalsIgnoreCase(name)) {
+			if (p.getHandle().getName().equalsIgnoreCase(name)) {
 				player = p;
 			}
 		}
@@ -85,18 +90,11 @@ public class LifeStealServer {
 	public LifeStealPlayer getPlayer(Player play) {
 		LifeStealPlayer player = null;
 		for (LifeStealPlayer p : players) {
-			if (p.getPlayer() == play) {
+			if (p.getHandle() == play) {
 				player = p;
 			}
 		}
 		return player;
-	}
-	
-	public void reload() {
-		values.load(config);
-	}
-	public Plugin getPlugin() {
-		return pl;
 	}
 	
 }
