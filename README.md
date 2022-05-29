@@ -54,7 +54,7 @@ HeartCanaster:
     - "*-*"
     - "***"
 ```
-##Messages
+## Messages
 ```Properties
 NoPermissions=&cYou do not have permission to do that.
 PlayerNotOnline=&c{0} is not online
