@@ -50,7 +50,7 @@ public class LifeStealMain extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new HeartCanasterUse(config), this);
 		if (config.getBoolean("Defaults.ShouldWithdrawCommandExist")) getCommand("withdraw").setExecutor(new WithdrawCommand(config));
 		if (config.getBoolean("HeartCanaster.RecipeEnabled")) canaster.loadRecipe(config);
-		if (!config.getBoolean("Defaults.ShouldDamageScaleWithHealth")) getServer().getPluginManager().registerEvents(new ScaleDamageListener(), this);
+		if (config.getBoolean("Defaults.ShouldDamageScaleWithHealth")) getServer().getPluginManager().registerEvents(new ScaleDamageListener(), this);
 		if (config.getBoolean("Defaults.ShouldKeepLastPlayerAsDamager")) getServer().getPluginManager().registerEvents(new LastDamagerListener(), this);
 		getServer().getPluginManager().registerEvents(new DeathListener(config), this);
 	}
