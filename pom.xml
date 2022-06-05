@@ -7,7 +7,7 @@
   <properties>
 	  <maven.compiler.source>1.8</maven.compiler.source>
 	  <maven.compiler.target>1.8</maven.compiler.target>
-	  <revision>0.0.9-BUGFIX</revision>
+	  <revision>0.1.0-SNAPSHOT</revision>
   </properties>
   <modules>
 	  <module>lifesteal-api</module>

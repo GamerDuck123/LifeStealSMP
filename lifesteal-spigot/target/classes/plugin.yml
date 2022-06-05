@@ -1,6 +1,6 @@
 name: LifeStealSMP
 main: com.gamerduck.LifeStealMain
-version: 0.0.9-BUGFIX
+version: 0.1.0-SNAPSHOT
 description: lifestealsmp plugin thingy
 api-version: 1.18
 commands:

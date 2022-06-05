@@ -1,9 +1,4 @@
-+ Made all database calls asynchronous
-+ Added a minimum value for hearts left over /withdraw
-+ Added a max amount of hearts someone can have
-+ Added an option to change the amount of hearts after being zeroed out
-+ All messages have been moved to messages.properties for easier updates and better load times
-+ Hex color support &#(color)
-+ Config internal improvements
-+ Heart Canaster internal improvements
-+ Death Listener internal improvements
++ Fixed infinite hearts bug with /withdraw
++ End Crystals now register as a player kill (Player who places it gets the kill)
++ Heart Canaster can now have Custom Model Data attached to it
++ Heart Canaster can now use colors, including hex codes
