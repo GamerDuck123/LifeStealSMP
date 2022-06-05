@@ -1,6 +1,7 @@
 package com.gamerduck;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -24,10 +25,10 @@ public interface GlobalMethods {
     	return ChatColor.translateAlternateColorCodes('&', matcher.appendTail(buffer).toString());
     } 
     default List<String> color(List<String> s) {
+    	List<String> returnList = new ArrayList<String>();
     	s.forEach(st -> {
-    		s.add(color(st));
-    		s.remove(st);
+    		returnList.add(color(st));
     	});
-    	return s;
+    	return returnList;
     }
 }

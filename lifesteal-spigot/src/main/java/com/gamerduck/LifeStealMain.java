@@ -20,6 +20,7 @@ import com.gamerduck.configs.UTF8PropertiesControl;
 import com.gamerduck.crafting.HeartCanaster;
 import com.gamerduck.crafting.HeartCanasterUse;
 import com.gamerduck.listeners.DeathListener;
+import com.gamerduck.listeners.EndCrystalPlaceListener;
 import com.gamerduck.listeners.LastDamagerListener;
 import com.gamerduck.listeners.ScaleDamageListener;
 import com.gamerduck.objects.LifeStealServer;
@@ -53,6 +54,7 @@ public class LifeStealMain extends JavaPlugin {
 		if (!config.getBoolean("Defaults.ShouldDamageScaleWithHealth")) getServer().getPluginManager().registerEvents(new ScaleDamageListener(), this);
 		if (config.getBoolean("Defaults.ShouldKeepLastPlayerAsDamager")) getServer().getPluginManager().registerEvents(new LastDamagerListener(), this);
 		getServer().getPluginManager().registerEvents(new DeathListener(config), this);
+		getServer().getPluginManager().registerEvents(new EndCrystalPlaceListener(this), this);
 	}
 	
 	@Override

@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 
@@ -44,20 +46,37 @@ public class DeathListener implements Listener, GlobalMethods {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			LifeStealPlayer pl = LifeStealServer.a().getPlayer(p);
-			if (p.getLastDamageCause() != null && p.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK
-					&& p.getKiller() instanceof Player) {
-				Player killer = p.getKiller();
-				loseLife(p, heartsLostOnDeath, LifeReason.KILL);
-				gainLife(killer, heartsGainedOnKill, LifeReason.KILL);
+			if (p.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
+				if (p.getLastDamageCause() != null
+						&& p.getKiller() instanceof Player) {
+					Player killer = p.getKiller();
+					loseLife(p, heartsLostOnDeath, LifeReason.KILL);
+					gainLife(killer, heartsGainedOnKill, LifeReason.KILL);
+				}
 			} else if (pl.getLastDamager() != null) {
 				Player killer = pl.getLastDamager();
 				loseLife(p, heartsLostOnDeath, LifeReason.KILL);
 				gainLife(killer, heartsGainedOnKill, LifeReason.KILL);
+			} else if (p.getLastDamageCause().getCause() == DamageCause.ENTITY_EXPLOSION) { 
+				Entity ent = ((EntityDamageByEntityEvent) e.getEntity().getLastDamageCause()).getDamager();
+				switch (ent.getType()) {
+				case ENDER_CRYSTAL: {
+					if (ent.hasMetadata("PLAYER_PLACED")) {
+						Player placer = (Player) ent.getMetadata("PLAYER_PLACED").get(0).value();
+						if (placer == p.getPlayer()) return;
+						loseLife(p, heartsLostOnDeath, LifeReason.KILL);
+						gainLife(placer, heartsGainedOnKill, LifeReason.KILL);
+						break;
+					}
+				}
+				default: break;
+				}
 			} else {
 				if (loseHeartsOnEnviroDeath) loseLife(p, heartsLostOnDeath, LifeReason.DEATH);
 			}
 		}
 	}
+		
 	
 	public void loseLife(Player player, double amount, LifeReason reason) {
 		LifeStealPlayer p = LifeStealServer.a().getPlayer(player);

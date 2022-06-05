@@ -3,7 +3,6 @@ package com.gamerduck.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,6 +30,7 @@ public class WithdrawCommand implements CommandExecutor, TabExecutor, GlobalMeth
 			if (isInteger(args[0])) {
 				double amount = Double.valueOf(args[0]);
 				LifeStealPlayer p = LifeStealServer.a().getPlayer((Player) sender);
+				if (amount < 0) return p.sendMessage(tl("CannotBeNegativeNumber"));
 				if (p.getHearts() - (amount * 2) < (minimumHearts)) return p.sendMessage(tl("CantBeLeftWithLessThanOneHeart", minimumHearts));
 				else {
 					amount *= 2;

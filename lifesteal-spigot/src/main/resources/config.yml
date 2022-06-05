@@ -34,6 +34,7 @@ HeartCanaster:
   AmountGive: 2.0
   Item:
     Material: PLAYER_HEAD
+    CustomModelData: 0
     DisplayName: "Heart Canaster"
     Lore:
     - "Right click this item to get a heart"

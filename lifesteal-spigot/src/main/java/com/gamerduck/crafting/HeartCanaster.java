@@ -11,15 +11,17 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import com.gamerduck.GlobalMethods;
 import com.gamerduck.LifeStealMain;
 
-public class HeartCanaster extends ItemStack {
+public class HeartCanaster extends ItemStack implements GlobalMethods {
 	public HeartCanaster(FileConfiguration config) {
 		super(Material.matchMaterial(config.getString("HeartCanaster.Item.Material")), 1);
 		
 		ItemMeta meta = super.getItemMeta();
-		meta.setDisplayName(config.getString("HeartCanaster.Item.DisplayName"));
+		meta.setDisplayName(color(config.getString("HeartCanaster.Item.DisplayName")));
 		meta.setLore(config.getStringList("HeartCanaster.Item.Lore"));
+		meta.setCustomModelData(config.getInt("HeartCanaster.Item.CustomModelData"));
 		meta.getPersistentDataContainer().set(LifeStealMain.a().getCanasterKey(), PersistentDataType.STRING, "heart_canaster");
 		super.setItemMeta(meta);
 	
