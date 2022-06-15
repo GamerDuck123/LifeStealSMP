@@ -45,8 +45,9 @@ public class DeathListener implements Listener, GlobalMethods {
 	
 	@EventHandler
 	public void onDeath(EntityDeathEvent e) {
-		if (e.getEntity() instanceof Player p) {
+		if (e.getEntity() instanceof Player) {
 			if (disabledWorlds.contains(e.getEntity().getWorld().getName())) return;
+			Player p = (Player) e.getEntity();
 			LifeStealPlayer pl = LifeStealServer.a().getPlayer(p);
 			if (p.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
 				if (p.getLastDamageCause() != null

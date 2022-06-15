@@ -1,3 +1,0 @@
-+ Now natively supports 1.19
-+ /lifesteal checkhearts (player) to check a player's hearts (offline or online)
-+ message.properties now auto updates after every version, I plan to do this for config.yml but its a bit more complicated
