@@ -16,6 +16,7 @@ Defaults:
   CommandsAfterKill: []
   CommandsAfterZeroing:
   - "tempban %player% 7d Try again later"
+  DisabledWorlds: []
 MySQL: 
   Enabled: false
   AutoReconnect: false

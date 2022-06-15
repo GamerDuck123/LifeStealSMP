@@ -17,6 +17,7 @@ import com.gamerduck.events.LifeGainEvent;
 import com.gamerduck.events.LifeLostEvent;
 import com.gamerduck.gui.DatabaseEditor;
 import com.gamerduck.objects.LifeStealPlayer;
+import com.gamerduck.objects.LifeStealServer;
 
 public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMethods {
 
@@ -30,6 +31,7 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMet
 				p.sendMessage("&7[&cLifeStealSMP&7] LifeStealSMP made by GamerDuck123");
 				p.sendMessage(" &c- /lifesteal reload");
 				p.sendMessage(" &c- /lifesteal dbeditor");
+				p.sendMessage(" &c- /lifesteal checkhearts (player)");
 				p.sendMessage(" &c- /lifesteal life (give | remove | set) (player) (amount)");
 				p.sendMessage(" &c- /lifesteal convert (VoodooLifeSteal)");
 			} else {
@@ -62,6 +64,17 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMet
 					    p.sendMessage("&cNow converting everyone from Voodoo's LifeStealSMP plugin");	
 					    LifeStealMain.a().getLifeStealServer().getPlayers().forEach(pl -> pl.convertFrom("VoodooLifeSteal"));
 					}
+				} else if (args[0].equalsIgnoreCase("checkhearts")) {
+					if (args.length < 2) return p.sendMessage("&cCorrect Usage: /lifesteal checkhearts (player)");
+					if (Bukkit.getOfflinePlayer(args[1]).isOnline()) {
+						LifeStealPlayer target = LifeStealMain.a().getLifeStealServer().getPlayer(args[1]);
+						p.sendMessage(tl("CheckHearts", args[1], target.getHearts()));
+					} else if (Bukkit.getOfflinePlayer(args[1]).hasPlayedBefore()) {
+						LifeStealServer.a().getDatabase().retrieveHearts(Bukkit.getOfflinePlayer(args[1]).getUniqueId().toString(), (retrived) -> {
+							p.sendMessage(tl("CheckHearts", args[1], retrived));
+						});
+						return true;
+					} else return p.sendMessage(tl("PlayerNeverJoined", args[1]));
 				} else if (args[0].equalsIgnoreCase("dbeditor")) {
 					if (args.length < 1) return p.sendMessage("&cCorrect Usage: /lifesteal dbeditor");
 					DatabaseEditor dbEditor = new DatabaseEditor();
@@ -86,6 +99,7 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMet
 			cmds.add("life");
 			cmds.add("dbeditor");
 			cmds.add("convert");
+			cmds.add("checkhearts");
 		} else if (args.length == 2) {
 			if (args[0].equalsIgnoreCase("life")) {
 				cmds.add("set");
@@ -93,6 +107,7 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMet
 				cmds.add("give");
 			} 
 			if (args[0].equalsIgnoreCase("convert")) cmds.add("VoodooLifeSteal");
+			if (args[0].equalsIgnoreCase("checkhearts")) Bukkit.getOnlinePlayers().forEach(p -> cmds.add(p.getName()));;
 		} else if (args.length == 3) {
 			if (args[0].equalsIgnoreCase("life")) Bukkit.getOnlinePlayers().forEach(p -> cmds.add(p.getName()));
 		} else if (args.length == 4) {

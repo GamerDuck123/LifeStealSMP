@@ -29,6 +29,7 @@ public class DeathListener implements Listener, GlobalMethods {
 	private final List<String> afterDeathCommands;
 	private final List<String> afterKillCommands;
 	private final double maxHeartAmount;
+	private final List<String> disabledWorlds;
 	
 	public DeathListener(FileConfiguration config) {
 		this.heartsLostOnDeath = config.getDouble("Defaults.HeartsLostOnDeath");
@@ -39,12 +40,13 @@ public class DeathListener implements Listener, GlobalMethods {
 		this.afterDeathCommands = config.getStringList("Defaults.CommandsAfterDeath");
 		this.afterKillCommands = config.getStringList("Defaults.CommandsAfterKill");
 		this.maxHeartAmount = config.getDouble("Defaults.MaxHeartAmount");
+		this.disabledWorlds = config.getStringList("Defaults.DisabledWorlds");
 	}
 	
 	@EventHandler
 	public void onDeath(EntityDeathEvent e) {
-		if (e.getEntity() instanceof Player) {
-			Player p = (Player) e.getEntity();
+		if (e.getEntity() instanceof Player p) {
+			if (disabledWorlds.contains(e.getEntity().getWorld().getName())) return;
 			LifeStealPlayer pl = LifeStealServer.a().getPlayer(p);
 			if (p.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
 				if (p.getLastDamageCause() != null
