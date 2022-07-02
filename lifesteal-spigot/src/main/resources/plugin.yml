@@ -8,3 +8,5 @@ commands:
     description: main command
   withdraw:
     description: main command
+  test:
+    description: main command

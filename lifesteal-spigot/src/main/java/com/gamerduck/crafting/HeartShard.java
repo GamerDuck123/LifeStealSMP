@@ -3,6 +3,7 @@ package com.gamerduck.crafting;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -16,28 +17,27 @@ import com.gamerduck.GlobalMethods;
 import com.gamerduck.LifeStealMain;
 import com.gamerduck.commons.items.DuckItem;
 
-public class HeartCanaster extends ItemStack implements GlobalMethods {	
+public class HeartShard extends ItemStack implements GlobalMethods {	
 	
-	public HeartCanaster(FileConfiguration config) {
-		super(Material.matchMaterial(config.getString("HeartCanaster.Item.Material")), 1);
+	public HeartShard(FileConfiguration config) {
+		super(Material.matchMaterial(config.getString("HeartShard.Item.Material")), 1);
 		ItemMeta meta = super.getItemMeta();
-		meta.setDisplayName(color(config.getString("HeartCanaster.Item.DisplayName")));
-		meta.setLore(config.getStringList(color("HeartCanaster.Item.Lore")));
-		meta.setCustomModelData(config.getInt("HeartCanaster.Item.CustomModelData"));
-		meta.getPersistentDataContainer().set(LifeStealMain.a().getCanasterKey(), PersistentDataType.STRING, "heart_canaster");
+		if (config.contains("HeartShard.Item.DisplayName")) meta.setDisplayName(color(config.getString("HeartShard.Item.DisplayName")));
+		if (config.contains("HeartShard.Item.Lore")) meta.setLore(color(config.getStringList("HeartShard.Item.Lore")));
+		if (config.contains("HeartShard.Item.CustomModelData")) meta.setCustomModelData(config.getInt("HeartShard.Item.CustomModelData"));
 		
 		super.setItemMeta(meta);
 	
 	}
 	public void loadRecipe(FileConfiguration config) {
 		Recipe recipe = null;		
-		List<String> shapeList = config.getStringList("HeartCanaster.Recipe.Shape");
-		switch(config.getString("HeartCanaster.Recipe.Type").toUpperCase()) {
+		List<String> shapeList = config.getStringList("HeartShard.Recipe.Shape");
+		switch(config.getString("HeartShard.Recipe.Type").toUpperCase()) {
 			case "SHAPED":
-				recipe = new ShapedRecipe(LifeStealMain.a().getCanasterKey(), this);
+				recipe = new ShapedRecipe(new NamespacedKey(LifeStealMain.a(), "lifesteal_heartshard"), this);
 				((ShapedRecipe) recipe).shape(shapeList.get(0), shapeList.get(1), shapeList.get(2));
-				for (String section : config.getConfigurationSection("HeartCanaster.Recipe.Contents").getKeys(false)) {
-					String path = "HeartCanaster.Recipe.Contents." + section + ".";
+				for (String section : config.getConfigurationSection("HeartShard.Recipe.Contents").getKeys(false)) {
+					String path = "HeartShard.Recipe.Contents." + section + ".";
 					System.out.println(section);
 					DuckItem item = new DuckItem().withMaterial(Material.getMaterial(section));
 					if (config.contains(path + "DisplayName")) item.withDisplayName(config.getString(path + "DisplayName"));
@@ -47,9 +47,9 @@ public class HeartCanaster extends ItemStack implements GlobalMethods {
 				}
 				break;
 			case "SHAPELESS":
-				recipe = new ShapelessRecipe(LifeStealMain.a().getCanasterKey(), this);
-				for (String section : config.getConfigurationSection("HeartCanaster.Recipe.Contents").getKeys(false)) {
-					String path = "HeartCanaster.Recipe.Contents." + section + ".";
+				recipe = new ShapelessRecipe(new NamespacedKey(LifeStealMain.a(), "lifesteal_heartshard"), this);
+				for (String section : config.getConfigurationSection("HeartShard.Recipe.Contents").getKeys(false)) {
+					String path = "HeartShard.Recipe.Contents." + section + ".";
 					System.out.println(section);
 					DuckItem item = new DuckItem().withMaterial(Material.getMaterial(section));
 					if (config.contains(path + "DisplayName")) item.withDisplayName(config.getString(path + "DisplayName"));

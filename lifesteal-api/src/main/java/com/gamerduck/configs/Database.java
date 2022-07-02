@@ -19,7 +19,7 @@ public class Database {
     private Connection connection;
 
     public Database(Plugin main) throws Exception {
-        Class.forName("org.sqlite.JDBC").newInstance();
+        Class.forName("org.sqlite.JDBC").getDeclaredConstructor().newInstance();
         connection = DriverManager.getConnection("jdbc:sqlite:" + new File(main.getDataFolder(), "database.db"));
         
         createTable("CREATE TABLE IF NOT EXISTS heartdata (UUID VARCHAR(36) UNIQUE, HEARTS DOUBLE(64,2));");
@@ -36,7 +36,7 @@ public class Database {
         info.setProperty("user", username);
         info.setProperty("password", password);
 
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
         connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database, info);
         
         createTable("CREATE TABLE IF NOT EXISTS heartdata (UUID VARCHAR(36) UNIQUE, HEARTS DOUBLE(64,2));");

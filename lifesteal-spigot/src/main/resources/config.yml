@@ -1,5 +1,6 @@
 Defaults:
   ConvertFrom: ""
+  IfAtMaxHeartsGiveCanaster: false
   ShouldWithdrawCommandExist: true
   WithdrawMininum: 20.0
   ShouldKeepLastPlayerAsDamager: true
@@ -35,7 +36,7 @@ HeartCanaster:
   AmountGive: 2.0
   Item:
     Material: PLAYER_HEAD
-    CustomModelData: 0
+    CustomModelData: 1
     DisplayName: "Heart Canaster"
     Lore:
     - "Right click this item to get a heart"
@@ -43,8 +44,33 @@ HeartCanaster:
   Recipe:
     Type: Shaped
     Contents:
-    - "*:DIAMOND"
-    - "-:GOLDEN_APPLE"
+      DIAMOND:
+        Symbol: "*"
+        CustomModelData: 1
+        DisplayName: "Heart Shard"
+        Lore:
+        - "Right click this item to get a heart"
+      GOLDEN_APPLE:
+        Symbol: "-"
+    Shape:
+    - "***"
+    - "*-*"
+    - "***"
+HeartShard:
+  Item:
+    Material: DIAMOND
+    CustomModelData: 1
+    DisplayName: "Heart Shard"
+    Lore:
+    - "Right click this item to get a heart"
+  RecipeEnabled: true
+  Recipe:
+    Type: Shaped
+    Contents:
+      DIAMOND:
+        Symbol: "*"
+      EMERALD:
+        Symbol: "-"
     Shape:
     - "***"
     - "*-*"

@@ -107,7 +107,8 @@ class Events implements Listener {
 	
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		LifeStealServer.a().getPlayer(e.getPlayer().getName()).onQuit();
-		LifeStealServer.a().removeOnlinePlayer(LifeStealServer.a().getPlayer(e.getPlayer().getName()));
+			LifeStealServer.a().getPlayer(e.getPlayer().getName()).onQuit();
+			LifeStealServer.a().removeOnlinePlayer(LifeStealServer.a().getPlayer(e.getPlayer().getName()));
+		
 	}
 }

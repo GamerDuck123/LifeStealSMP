@@ -1,6 +1,7 @@
 package com.gamerduck.commands;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -9,9 +10,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import com.gamerduck.GlobalMethods;
 import com.gamerduck.LifeStealMain;
+import com.gamerduck.commons.general.Numbers;
 import com.gamerduck.enums.LifeReason;
 import com.gamerduck.events.LifeGainEvent;
 import com.gamerduck.events.LifeLostEvent;
@@ -29,10 +32,12 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMet
 			if (!p.hasPermission("lifesteal.admin")) {return p.sendMessage(tl("NoPermissions"));}
 			if (args.length == 0) {
 				p.sendMessage("&7[&cLifeStealSMP&7] LifeStealSMP made by GamerDuck123");
+				p.sendMessage(" &c() - Required | [] - Optional");
 				p.sendMessage(" &c- /lifesteal reload");
 				p.sendMessage(" &c- /lifesteal dbeditor");
 				p.sendMessage(" &c- /lifesteal checkhearts (player)");
 				p.sendMessage(" &c- /lifesteal life (give | remove | set) (player) (amount)");
+				p.sendMessage(" &c- /lifesteal canaster (player) [amount]");
 				p.sendMessage(" &c- /lifesteal convert (VoodooLifeSteal)");
 			} else {
 				if (args[0].equalsIgnoreCase("reload")) {
@@ -79,7 +84,18 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMet
 					if (args.length < 1) return p.sendMessage("&cCorrect Usage: /lifesteal dbeditor");
 					DatabaseEditor dbEditor = new DatabaseEditor();
 					p.getHandle().openInventory(dbEditor.openPage(1));
+				} else if (args[0].equalsIgnoreCase("canaster")) {
+					if (args.length < 2) return p.sendMessage("&cCorrect Usage: /lifesteal canaster (player) [amount]");
+					if (!Bukkit.getOfflinePlayer(args[1]).isOnline()) return p.sendMessage(tl("PlayerNotOnline"));
+					ItemStack item = LifeStealMain.getInstance().getCanaster().clone();
+					if (args.length == 3) {
+						if (!Numbers.isNumber(args[2])) return p.sendMessage(tl("NotANumber"));
+						item.setAmount(Integer.valueOf(args[2]));
+					}
+					Bukkit.getPlayer(args[1]).getInventory().addItem(item);
+					Bukkit.getPlayer(args[1]).sendMessage(tl("HeartCanasterRecieved"));
 				}
+				p.sendMessage(" &c- /lifesteal canaster (player) (amount)");
 			}
 		}
 		return true;
@@ -94,12 +110,14 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMet
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		ArrayList<String> cmds = new ArrayList<String>();
+		if (!sender.hasPermission("lifesteal.admin")) return Collections.emptyList();
 		if (args.length == 1) {
 			cmds.add("reload");
 			cmds.add("life");
 			cmds.add("dbeditor");
 			cmds.add("convert");
 			cmds.add("checkhearts");
+			cmds.add("canaster");
 		} else if (args.length == 2) {
 			if (args[0].equalsIgnoreCase("life")) {
 				cmds.add("set");
@@ -107,9 +125,16 @@ public class LifeStealCommand implements CommandExecutor, TabExecutor, GlobalMet
 				cmds.add("give");
 			} 
 			if (args[0].equalsIgnoreCase("convert")) cmds.add("VoodooLifeSteal");
-			if (args[0].equalsIgnoreCase("checkhearts")) Bukkit.getOnlinePlayers().forEach(p -> cmds.add(p.getName()));;
+			if (args[0].equalsIgnoreCase("checkhearts") || args[0].equalsIgnoreCase("canaster")) Bukkit.getOnlinePlayers().forEach(p -> cmds.add(p.getName()));;
 		} else if (args.length == 3) {
 			if (args[0].equalsIgnoreCase("life")) Bukkit.getOnlinePlayers().forEach(p -> cmds.add(p.getName()));
+			if (args[0].equalsIgnoreCase("canaster")) {
+				cmds.add("1");
+				cmds.add("2");
+				cmds.add("3");
+				cmds.add("4");
+				cmds.add("5");
+			}
 		} else if (args.length == 4) {
 			if (args[0].equalsIgnoreCase("life")) {
 				cmds.add("1");

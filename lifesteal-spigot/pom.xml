@@ -25,7 +25,18 @@
 		<version>1.18.22</version>
 		<scope>provided</scope>
 	</dependency>
-  </dependencies>	
+	<dependency>
+	    <groupId>com.github.GamerDuck123</groupId>
+	    <artifactId>DuckCommons</artifactId>
+	    <version>53d139aac0</version>
+	</dependency>
+        <dependency>
+         <groupId>me.clip</groupId>
+          <artifactId>placeholderapi</artifactId>
+          <version>2.11.1</version>
+         <scope>provided</scope>
+        </dependency>
+  </dependencies>
     <build>
     <finalName>LifeStealSMP-${revision}</finalName>
     <resources>
@@ -43,13 +54,22 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
               <goal>shade</goal>
             </goals>
+            <configuration>
+			  <relocations>
+                <relocation>
+                  <pattern>com.gamerduck.commons</pattern>
+                  <shadedPattern>com.gamerduck.lifesteal</shadedPattern>
+                </relocation>
+              </relocations>
+			  <minimizeJar>true</minimizeJar>
+            </configuration>
           </execution>
         </executions>
       </plugin>
