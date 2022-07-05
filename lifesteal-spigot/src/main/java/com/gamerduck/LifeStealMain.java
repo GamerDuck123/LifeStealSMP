@@ -14,7 +14,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gamerduck.commands.LifeStealCommand;
-import com.gamerduck.commands.TestCommand;
 import com.gamerduck.commands.WithdrawCommand;
 import com.gamerduck.commons.files.Files;
 import com.gamerduck.commons.files.UTF8PropertiesControl;
@@ -48,7 +47,7 @@ public class LifeStealMain extends JavaPlugin {
 		loadConfigs();
 		lifeStealServer = new LifeStealServer(getServer(), this, config, messagesBundle);
 		TabExecutor cmd = new LifeStealCommand();
-		getCommand("test").setExecutor(new TestCommand());
+//		getCommand("test").setExecutor(new TestCommand());
 		getCommand("lifesteal").setExecutor(cmd);
 		getCommand("lifesteal").setTabCompleter(cmd);
 		canasterKey = new NamespacedKey(LifeStealMain.a(), "heart_canaster");

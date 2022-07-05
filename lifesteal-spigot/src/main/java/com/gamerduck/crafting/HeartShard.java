@@ -38,24 +38,44 @@ public class HeartShard extends ItemStack implements GlobalMethods {
 				((ShapedRecipe) recipe).shape(shapeList.get(0), shapeList.get(1), shapeList.get(2));
 				for (String section : config.getConfigurationSection("HeartShard.Recipe.Contents").getKeys(false)) {
 					String path = "HeartShard.Recipe.Contents." + section + ".";
-					System.out.println(section);
+					boolean justMaterial = true;
 					DuckItem item = new DuckItem().withMaterial(Material.getMaterial(section));
-					if (config.contains(path + "DisplayName")) item.withDisplayName(config.getString(path + "DisplayName"));
-					if (config.contains(path + "Lore")) item.withLore(config.getStringList(path + "Lore"));
-					if (config.contains(path + "CustomModelData")) item.withCustomModelData(config.getInt(path + "CustomModelData"));
-					((ShapedRecipe) recipe).setIngredient(config.getString(path + "Symbol").charAt(0), new RecipeChoice.ExactChoice(item));
+					if (config.contains(path + "DisplayName")) {
+						item.withDisplayName(config.getString(path + "DisplayName"));
+						justMaterial = false;
+					}
+					if (config.contains(path + "Lore")) {
+						item.withLore(config.getStringList(path + "Lore")); 
+						justMaterial = false;
+					}
+					if (config.contains(path + "CustomModelData")) {
+						item.withCustomModelData(config.getInt(path + "CustomModelData"));
+						justMaterial = false;
+					}
+					if (!justMaterial) ((ShapedRecipe) recipe).setIngredient(config.getString(path + "Symbol").charAt(0), new RecipeChoice.ExactChoice(item));
+					else ((ShapedRecipe) recipe).setIngredient(config.getString(path + "Symbol").charAt(0), item.getType());
 				}
 				break;
 			case "SHAPELESS":
 				recipe = new ShapelessRecipe(new NamespacedKey(LifeStealMain.a(), "lifesteal_heartshard"), this);
 				for (String section : config.getConfigurationSection("HeartShard.Recipe.Contents").getKeys(false)) {
 					String path = "HeartShard.Recipe.Contents." + section + ".";
-					System.out.println(section);
+					boolean justMaterial = true;
 					DuckItem item = new DuckItem().withMaterial(Material.getMaterial(section));
-					if (config.contains(path + "DisplayName")) item.withDisplayName(config.getString(path + "DisplayName"));
-					if (config.contains(path + "Lore")) item.withLore(config.getStringList(path + "Lore"));
-					if (config.contains(path + "CustomModelData")) item.withCustomModelData(config.getInt(path + "CustomModelData"));
-					((ShapelessRecipe) recipe).addIngredient(new RecipeChoice.ExactChoice(item));
+					if (config.contains(path + "DisplayName")) {
+						item.withDisplayName(config.getString(path + "DisplayName"));
+						justMaterial = false;
+					}
+					if (config.contains(path + "Lore")) {
+						item.withLore(config.getStringList(path + "Lore")); 
+						justMaterial = false;
+					}
+					if (config.contains(path + "CustomModelData")) {
+						item.withCustomModelData(config.getInt(path + "CustomModelData"));
+						justMaterial = false;
+					}
+					if (!justMaterial) ((ShapedRecipe) recipe).setIngredient(config.getString(path + "Symbol").charAt(0), new RecipeChoice.ExactChoice(item));
+					else ((ShapedRecipe) recipe).setIngredient(config.getString(path + "Symbol").charAt(0), item.getType());
 				}
 				break;
 		}
