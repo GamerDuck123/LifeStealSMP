@@ -1,4 +1,4 @@
-+ Now natively supports 1.19
-+ /lifesteal checkhearts (player) to check a player's hearts (offline or online)
-+ message.properties now auto updates after every version, I plan to do this for config.yml but its a bit more complicated
-+ You can now disable the losing/gaining of hearts on a per world basisa
++ New, more advanced crafting system (TUTORIAL COMING SOON!)
++ Support with most (if not all) Combat Logging plugins
++ PlaceHolderAPI Support
++ Heart Shard system

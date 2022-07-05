@@ -7,7 +7,7 @@
   <properties>
 	  <maven.compiler.source>16</maven.compiler.source>
 	  <maven.compiler.target>16</maven.compiler.target>
-	  <revision>0.1.2-SNAPSHOT-TEST</revision>
+	  <revision>0.1.2-PATCH</revision>
   </properties>
   <modules>
 	  <module>lifesteal-api</module>
@@ -34,5 +34,9 @@
     	<id>placeholderapi</id>
 		<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
 	</repository>
+    <repository>
+        <id>sk89q-repo</id>
+        <url>https://maven.enginehub.org/repo/</url>
+    </repository>
   </repositories>
 </project>

@@ -1,4 +1,2 @@
-+ New, more advanced crafting system (TUTORIAL COMING SOON!)
-+ Support with most (if not all) Combat Logging plugins
-+ PlaceHolderAPI Support
-+ Heart Shard system
++ WorldGuard Support
++ Improved framework for better support with other claim plugins in the future

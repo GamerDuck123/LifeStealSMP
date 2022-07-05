@@ -44,6 +44,7 @@ public interface GlobalMethods {
     }
 	
 	public default void loseLife(Player player, double amount, LifeReason reason) throws Exception {
+		if (!LifeStealMain.getInstance().getRegionHook().shouldLoseHeartInRegion(player)) return;
 		LifeStealPlayer p = LifeStealServer.a().getPlayer(player);
 		if (player == null || !player.isOnline() || p == null) {
 			loseLifeOffline(player.getUniqueId(), amount);
@@ -63,6 +64,7 @@ public interface GlobalMethods {
 	}
 	
 	public default void gainLife(Player player, double amount, LifeReason reason) {
+		if (!LifeStealMain.getInstance().getRegionHook().shouldLoseHeartInRegion(player)) return;
 		LifeStealPlayer p = LifeStealServer.a().getPlayer(player);
 		if (player == null || !player.isOnline() || p == null) {
 			gainLifeOffline(player.getUniqueId(), amount);

@@ -21,6 +21,9 @@ import com.gamerduck.crafting.HeartCanaster;
 import com.gamerduck.crafting.HeartCanasterEvents;
 import com.gamerduck.crafting.HeartShard;
 import com.gamerduck.hooks.PlaceHolderAPIHook;
+import com.gamerduck.hooks.region.DefaultHook;
+import com.gamerduck.hooks.region.RegionHook;
+import com.gamerduck.hooks.region.WorldGuardHook;
 import com.gamerduck.listeners.DeathListener;
 import com.gamerduck.listeners.EndCrystalPlaceListener;
 import com.gamerduck.listeners.LastDamagerListener;
@@ -40,6 +43,7 @@ public class LifeStealMain extends JavaPlugin {
 	@Getter HeartCanaster canaster;
 	@Getter HeartShard shard;
 	@Getter ResourceBundle messagesBundle;
+	@Getter RegionHook regionHook;
 	
 	@Override
 	public void onEnable() {
@@ -63,6 +67,11 @@ public class LifeStealMain extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new EndCrystalPlaceListener(this), this);
 		if (getServer().getPluginManager().getPlugin("PlaceHolderAPI") != null) {
 			new PlaceHolderAPIHook(lifeStealServer).register();
+		}
+		if (getServer().getPluginManager().getPlugin("WorldGuard") != null) {
+			regionHook = new WorldGuardHook().enable(this);
+		} else {
+			regionHook = new DefaultHook().enable(this);
 		}
 	}
 	
