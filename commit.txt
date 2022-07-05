@@ -1,2 +1,0 @@
-+ WorldGuard Support
-+ Improved framework for better support with other claim plugins in the future
