@@ -36,7 +36,6 @@ import net.md_5.bungee.api.ChatColor;
 public class LifeStealMain extends JavaPlugin {
 	
 	@Getter static LifeStealMain instance;
-	@Getter NamespacedKey canasterKey;
 	@Getter LifeStealServer lifeStealServer;
 	File file;
 	@Getter FileConfiguration config;
@@ -54,7 +53,6 @@ public class LifeStealMain extends JavaPlugin {
 //		getCommand("test").setExecutor(new TestCommand());
 		getCommand("lifesteal").setExecutor(cmd);
 		getCommand("lifesteal").setTabCompleter(cmd);
-		canasterKey = new NamespacedKey(LifeStealMain.a(), "heart_canaster");
 		canaster = new HeartCanaster(config);
 		shard = new HeartShard(config);
 		getServer().getPluginManager().registerEvents(new HeartCanasterEvents(), this);

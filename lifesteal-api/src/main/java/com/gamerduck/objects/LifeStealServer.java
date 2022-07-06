@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -30,6 +31,7 @@ public class LifeStealServer {
 	@Getter Database database;
 	@Getter ResourceBundle messages;
     @Getter final ExecutorService executor;
+	@Getter NamespacedKey canasterKey;
 	
 	public LifeStealServer(Server server, Plugin plugin, FileConfiguration config, ResourceBundle messages) {
 		instance = this;
@@ -38,6 +40,7 @@ public class LifeStealServer {
 		this.config = config;
         executor = Executors.newSingleThreadExecutor();
 		players = new ArrayList<LifeStealPlayer>();
+		canasterKey = new NamespacedKey(plugin, "heart_canaster");
 		if (config.getBoolean("MySQL.Enabled")) {
 			try {database = new Database(plugin, 
 					config.getBoolean("MySQL.AutoReconnect"),

@@ -6,7 +6,6 @@
 *.iws
 
 *.bak
-commit.txt
 
 # IntelliJ
 out/

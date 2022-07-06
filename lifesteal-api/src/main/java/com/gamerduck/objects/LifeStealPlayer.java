@@ -38,6 +38,7 @@ public class LifeStealPlayer {
 				handle.setHealthScale(retrived);
 			}
 		});
+		if (LifeStealServer.a().getConfig().getBoolean("Defaults.ShouldPlayerRecieveRecipeOnJoin")) handle.discoverRecipe(LifeStealServer.a().getCanasterKey());
 		updateTABColor();
 	}
 	

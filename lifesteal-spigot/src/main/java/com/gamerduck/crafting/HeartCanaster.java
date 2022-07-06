@@ -24,7 +24,7 @@ public class HeartCanaster extends ItemStack implements GlobalMethods {
 		meta.setDisplayName(color(config.getString("HeartCanaster.Item.DisplayName")));
 		meta.setLore(config.getStringList(color("HeartCanaster.Item.Lore")));
 		meta.setCustomModelData(config.getInt("HeartCanaster.Item.CustomModelData"));
-		meta.getPersistentDataContainer().set(LifeStealMain.a().getCanasterKey(), PersistentDataType.STRING, "heart_canaster");
+		meta.getPersistentDataContainer().set(LifeStealMain.a().getLifeStealServer().getCanasterKey(), PersistentDataType.STRING, "heart_canaster");
 		
 		super.setItemMeta(meta);
 	
@@ -34,7 +34,7 @@ public class HeartCanaster extends ItemStack implements GlobalMethods {
 		List<String> shapeList = config.getStringList("HeartCanaster.Recipe.Shape");
 		switch(config.getString("HeartCanaster.Recipe.Type").toUpperCase()) {
 			case "SHAPED":
-				recipe = new ShapedRecipe(LifeStealMain.a().getCanasterKey(), this);
+				recipe = new ShapedRecipe(LifeStealMain.a().getLifeStealServer().getCanasterKey(), this);
 				((ShapedRecipe) recipe).shape(shapeList.get(0), shapeList.get(1), shapeList.get(2));
 				for (String section : config.getConfigurationSection("HeartCanaster.Recipe.Contents").getKeys(false)) {
 					String path = "HeartCanaster.Recipe.Contents." + section + ".";
@@ -57,7 +57,7 @@ public class HeartCanaster extends ItemStack implements GlobalMethods {
 				}
 				break;
 			case "SHAPELESS":
-				recipe = new ShapelessRecipe(LifeStealMain.a().getCanasterKey(), this);
+				recipe = new ShapelessRecipe(LifeStealMain.a().getLifeStealServer().getCanasterKey(), this);
 				for (String section : config.getConfigurationSection("HeartCanaster.Recipe.Contents").getKeys(false)) {
 					String path = "HeartCanaster.Recipe.Contents." + section + ".";
 					boolean justMaterial = true;

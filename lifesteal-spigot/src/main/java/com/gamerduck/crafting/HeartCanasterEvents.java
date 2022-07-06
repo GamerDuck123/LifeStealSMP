@@ -22,8 +22,8 @@ public class HeartCanasterEvents implements Listener, GlobalMethods {
 		if (e.getItem() == null) return;
 		ItemMeta meta = e.getItem().getItemMeta();
 		PersistentDataContainer container = meta.getPersistentDataContainer();
-		if (container.has(LifeStealMain.a().getCanasterKey(), PersistentDataType.STRING)) {
-			if (container.get(LifeStealMain.a().getCanasterKey(), PersistentDataType.STRING).equalsIgnoreCase("heart_canaster")) {
+		if (container.has(LifeStealMain.a().getLifeStealServer().getCanasterKey(), PersistentDataType.STRING)) {
+			if (container.get(LifeStealMain.a().getLifeStealServer().getCanasterKey(), PersistentDataType.STRING).equalsIgnoreCase("heart_canaster")) {
 				LifeStealPlayer p = LifeStealMain.a().getLifeStealServer().getPlayer(e.getPlayer());
 				if (e.getAction() == Action.RIGHT_CLICK_AIR
 						|| e.getAction() == Action.RIGHT_CLICK_BLOCK) {
