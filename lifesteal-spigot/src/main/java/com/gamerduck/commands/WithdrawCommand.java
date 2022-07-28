@@ -35,7 +35,10 @@ public class WithdrawCommand implements CommandExecutor, TabExecutor, GlobalMeth
 				else {
 					amount *= 2;
 					p.subHearts(Double.valueOf(amount));
-					for (int i = 1; i <= amount / 2; i++) p.getHandle().getInventory().addItem(LifeStealMain.a().getCanaster());
+					for (int i = 1; i <= amount / 2; i++) {
+						if (p.getHandle().getInventory().firstEmpty() != -1) p.getHandle().getInventory().addItem(LifeStealMain.a().getCanaster());
+						else p.getHandle().getWorld().dropItem(p.getHandle().getLocation(), LifeStealMain.a().getCanaster());
+					}
 					return p.sendMessage(tl("HeartsWithdrawn", args[0]));
 				}
 			} else sender.sendMessage(tl("HasToBeWholeNumber"));
