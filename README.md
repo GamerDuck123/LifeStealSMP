@@ -1,4 +1,7 @@
 # LifeStealSMP
+
+### I am currently taking classes at university, I plan to try to continue weekly bug fixes and updates. However, it might take a bit longer due to classes coming first!
+
 ## Commands
 ![image](https://user-images.githubusercontent.com/30637585/144163687-2c07ef34-598d-4f07-b4ff-be112e6d2361.png)
 
